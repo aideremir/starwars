@@ -11,8 +11,12 @@
     validate ({params}) {
       return /^\d+$/.test(params.id)
     },
-    fetch ({store}) {
-      return store.dispatch('fetchMovies')
+    fetch ({store, error, params}) {
+      return store.dispatch('fetchMovies').then(() => {
+        if (!store.getters.getMovieById(params.id)) {
+          return error({ statusCode: 404, message: 'Movie not found' })
+        }
+      })
     },
     computed: {
       movie () {
