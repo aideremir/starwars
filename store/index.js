@@ -15,15 +15,17 @@ export const mutations = {
 }
 
 export const actions = {
-  fetchMovies ({ commit }) {
-    return axios.get(swApiUrl + '/films/').then(
-      response => {
-        response.data.results.map(movie => {
-          movie.id = +movie.url.replace(/https:\/\/swapi.co\/api\/films\/(\d+)\//g, '$1')
-        })
-        commit('SET_MOVIES', response.data.results)
-      }
-    )
+  fetchMovies ({ commit, state }) {
+    if (!state.movies || state.movies.length === 0) {
+      return axios.get(swApiUrl + '/films/').then(
+        response => {
+          response.data.results.map(movie => {
+            movie.id = +movie.url.replace(/https:\/\/swapi.co\/api\/films\/(\d+)\//g, '$1')
+          })
+          commit('SET_MOVIES', response.data.results)
+        }
+      )
+    }
   }
 }
 

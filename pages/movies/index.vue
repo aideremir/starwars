@@ -8,9 +8,7 @@ import SwMoviesList from '~/components/swMoviesList'
 export default {
   components: {SwMoviesList},
   fetch ({store}) {
-    if (!store.state.movies || store.state.movies.length === 0) {
-      return store.dispatch('fetchMovies')
-    }
+    return store.dispatch('fetchMovies')
   },
   computed: {
     movies () {

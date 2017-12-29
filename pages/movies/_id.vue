@@ -12,9 +12,7 @@
       return /^\d+$/.test(params.id)
     },
     fetch ({store}) {
-      if (!store.state.movies || store.state.movies.length === 0) {
-        return store.dispatch('fetchMovies')
-      }
+      return store.dispatch('fetchMovies')
     },
     computed: {
       movie () {
